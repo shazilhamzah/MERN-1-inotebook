@@ -28,10 +28,16 @@ const NoteState = (props) => {
 
   // ADD A NOTE
   const addNote = (title, description, tag) => {
-    // Simulate API call or actual API call to add the note
     console.log("Adding a new Note");
+
+    // GENERATING A RANDOM NUMBER
+    let randomNumber = "";
+    for (let i = 0; i < 25; i++) {
+      let digit = Math.floor(Math.random() * 10); // Generate a random digit (0-9)
+      randomNumber += digit.toString(); // Append the digit to the number string
+    }
     const newNote = {
-      _id: "unique-id-generated", // Generate a unique ID
+      _id: randomNumber, // Generate a unique ID
       user: "66894f48a9b4f38d465c6198", // Assuming this is fixed for all notes
       title: title,
       description: description,
@@ -43,8 +49,10 @@ const NoteState = (props) => {
   };
 
   // DELETE A NOTE
-  const deleteNote = () => {
-    // Implement delete functionality if needed
+  const deleteNote = (id) => {
+    console.log("Deleting the note with id ", id);
+    const newNotes = notes.filter((initialNotes) => initialNotes._id !== id);
+    setNotes(newNotes);
   };
 
   // UPDATE A NOTE
