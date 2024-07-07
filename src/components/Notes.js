@@ -5,16 +5,17 @@ import AddNote from "./AddNote";
 
 export const Notes = () => {
   const context = useContext(NoteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, updateNote } = context;
 
   useEffect(() => {
     getNotes();
   }, []);
-  const [note, setNote] = useState({ etitle: "", edescription: "", etags: "" });
+  const [note, setNote] = useState({id:"", etitle: "", edescription: "", etags: "" });
 
   const handleClick = (e) => {
     e.preventDefault();
-    // addNote(note.title, note.description, note.tags);
+    updateNote(note.id, note.etitle, note.edescription, note.etags);
+    ref.current.click();
   };
 
   const onChange = (e) => {
@@ -22,9 +23,11 @@ export const Notes = () => {
   };
 
   const ref = useRef(null);
-  const updateNote = (currentNote) => {
+  const refClose = useRef(null);
+  const updateNote1 = (currentNote) => {
     ref.current.click();
     setNote({
+      id: currentNote._id || "",
       etitle: currentNote.title || "",
       edescription: currentNote.description || "",
       etags: currentNote.tags || ""
@@ -79,6 +82,8 @@ export const Notes = () => {
                     aria-describedby="emailHelp"
                     onChange={onChange}
                     value={note.etitle}
+                    minLength={3}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -92,6 +97,8 @@ export const Notes = () => {
                     name="edescription"
                     onChange={onChange}
                     value={note.edescription}
+                    minLength={5}
+                  required
                   />
                 </div>
                 <div className="mb-3">
@@ -113,10 +120,11 @@ export const Notes = () => {
                   type="button"
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
+                  ref={refClose}
                 >
                   Close
                 </button>
-                <button type="button" className="btn btn-primary" onClick={handleClick}>
+                <button type="button" className="btn btn-primary" onClick={handleClick} disabled={note.etitle.length<3 || note.edescription.length<5}>
                   Update
                 </button>
               </div>
@@ -127,8 +135,11 @@ export const Notes = () => {
       <div className="my-3 row mx-3">
         <AddNote />
         <h1 className="my-3">Your Notes</h1>
+        
+        {notes.length===0 && <div className="container mx-1 my-3">No Notes to Display!</div>}
+        
         {notes.map((note) => (
-          <NoteItem key={note._id} updateNote={updateNote} note={note} />
+          <NoteItem key={note._id} updateNote1={updateNote1} note={note} />
         ))}
       </div>
     </>

@@ -31,11 +31,13 @@
         },
         body: JSON.stringify({title,description,tag}),
       });
-      const newNote = {
-        title: title,
-        description: description,
-        tag: tag,
-      };
+      const json = await response.json();
+      const newNote = json;
+      // const newNote = {
+      //   title: title,
+      //   description: description,
+      //   tag: tag,
+      // };
       setNotes(notes.concat(newNote)); // Update context state with new note
     };
 
@@ -63,6 +65,26 @@
         },
         body: JSON.stringify({title,description,tag}),
       });
+      let newNotes = JSON.parse(JSON.stringify(notes));
+      for (let index = 0; index < newNotes.length; index++){
+        const element = newNotes[index];
+        if(element._id===id){
+          newNotes[index].title=title;
+          newNotes[index].description = description;
+          newNotes[index].tag = tag;
+          break;
+        }
+      }
+      setNotes(newNotes);
+
+      // const json = await response.json(); 
+      // const newNotes = notes.map(note => {
+      //   if (note._id === id) {
+      //     return { ...note, title, description, tag };
+      //   }
+      //   return note;
+      // });
+      // setNotes(newNotes);
     };
 
     return (

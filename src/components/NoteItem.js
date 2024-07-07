@@ -2,7 +2,7 @@ import React, { useContext, useRef } from "react";
 import NoteContext from "../context/notes/noteContext";
 
 export const NoteItem = (props) => {
-  const { note,updateNote } = props;
+  const { note,updateNote1 } = props;
   const context = useContext(NoteContext);
   const { deleteNote } = context;
   return (
@@ -19,7 +19,7 @@ export const NoteItem = (props) => {
             ></i>
             <i
               className="fa-regular fa-pen-to-square mx-3"
-              onClick={() => updateNote(note)}
+              onClick={() => updateNote1(note)}
             ></i>
           </div>
         </div>
