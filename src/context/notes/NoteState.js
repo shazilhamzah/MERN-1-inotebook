@@ -1,70 +1,75 @@
-import React, { useState } from "react";
-import NoteContext from "./noteContext";
+  import React, { useState } from "react";
+  import NoteContext from "./noteContext";
 
-const NoteState = (props) => {
-  const initialNotes = [
-    {
-      _id: "66894fe3a9b4f38d465c61a0",
-      user: "66894f48a9b4f38d465c6198",
-      title: "anothernote",
-      description: "hahah u are lol",
-      tag: "",
-      date: "1720274915936",
-      __v: 0,
-    },
-    {
-      _id: "66895d407307562e15a5cee97",
-      user: "66894f48a9b4f38d465c6198",
-      title: "anothernote1",
-      description: "this is my note",
-      tag: "",
-      date: "1720278336157",
-      __v: 0,
-    },
-    // Add other initial notes as needed
-  ];
+  const NoteState = (props) => {
+    const host = "http://localhost:5000";
+   
 
-  const [notes, setNotes] = useState(initialNotes);
+    const [notes, setNotes] = useState([]);
 
-  // ADD A NOTE
-  const addNote = (title, description, tag) => {
-    console.log("Adding a new Note");
-
-    // GENERATING A RANDOM NUMBER
-    let randomNumber = "";
-    for (let i = 0; i < 25; i++) {
-      let digit = Math.floor(Math.random() * 10); // Generate a random digit (0-9)
-      randomNumber += digit.toString(); // Append the digit to the number string
-    }
-    const newNote = {
-      _id: randomNumber, // Generate a unique ID
-      user: "66894f48a9b4f38d465c6198", // Assuming this is fixed for all notes
-      title: title,
-      description: description,
-      tag: tag,
-      date: Date.now().toString(), // Use current timestamp
-      __v: 0,
+    const getNotes = async (id, title, description, tag) => {
+      const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+        },
+      });
+      const a = await response.json()
+      console.log(a);
+      setNotes(a);
     };
-    setNotes(notes.concat(newNote)); // Update context state with new note
+
+    // ADD A NOTE
+    const addNote = async (title, description, tag) => {
+      console.log("Adding a new Note");
+      const response = await fetch(`${host}/api/notes/addnote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+        },
+        body: JSON.stringify({title,description,tag}),
+      });
+      const newNote = {
+        title: title,
+        description: description,
+        tag: tag,
+      };
+      setNotes(notes.concat(newNote)); // Update context state with new note
+    };
+
+    // DELETE A NOTE
+    const deleteNote = async (id) => {
+      console.log("Deleting the note with id ", id);
+      const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+        },
+      });
+      const newNotes = notes.filter((notes) => notes._id !== id);
+      setNotes(newNotes);
+    };
+
+    // UPDATE A NOTE
+    const updateNote = async (id, title, description, tag) => {
+      const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+        },
+        body: JSON.stringify({title,description,tag}),
+      });
+    };
+
+    return (
+      <NoteContext.Provider value={{ notes, addNote, deleteNote, updateNote,getNotes }}>
+        {props.children}
+      </NoteContext.Provider>
+    );
   };
 
-  // DELETE A NOTE
-  const deleteNote = (id) => {
-    console.log("Deleting the note with id ", id);
-    const newNotes = notes.filter((initialNotes) => initialNotes._id !== id);
-    setNotes(newNotes);
-  };
-
-  // UPDATE A NOTE
-  const updateNote = () => {
-    // Implement update functionality if needed
-  };
-
-  return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote, updateNote }}>
-      {props.children}
-    </NoteContext.Provider>
-  );
-};
-
-export default NoteState;
+  export default NoteState;

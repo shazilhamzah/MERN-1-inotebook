@@ -11,7 +11,7 @@ function App() {
     <>
       <NoteState>
         <Router>
-          <Alert message="This is amazing react app!"/>
+          {/* <Alert message="This is amazing react app!"/> */}
             <Navbar />
           <div className="container">
             <Routes>

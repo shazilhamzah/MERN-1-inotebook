@@ -44,6 +44,7 @@ router.post(
         user: req.user.id,
       });
       const savedNote = await note.save();
+      console.log("Success checkpoint 1");
       res.json(savedNote);
     } catch (error) {
       // CATCHING ERROR
