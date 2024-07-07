@@ -62,7 +62,7 @@ router.post('/login',[
     body('email', "Enter a valid email").isEmail(),
     body('password', "Password can not be blank").exists(),
 ],async(req,res)=>{
-
+    let success = false;
     // ERROR VALIDATION FOR EMAIL AND PWD
     const result = validationResult(req);
     if (!result.isEmpty()) {
@@ -75,13 +75,15 @@ router.post('/login',[
         // CHECKING EMAIL EXISTANCE
         let user=await User.findOne({email});
         if(!user){
-            return res.status(400).json({error:"Please try to login with correct credentials!"});
+            success=false;
+            return res.status(400).json({success,error:"Please try to login with correct credentials!"});
         } 
 
         // MATCHING CORRECT PASSWORD
         const passwordComapare = await bcrypt.compare(password,user.password);
         if(!passwordComapare){
-            return res.status(400).json({error:"Please try to login with correct credentials!"});
+            success = false;
+            return res.status(400).json({success,error:"Please try to login with correct credentials!"});
         }
 
         // GAINING JSON WEB TOKEN ON AUTHENTICATION
@@ -91,7 +93,8 @@ router.post('/login',[
             }
         }
         const authToken = jwt.sign(data,JWT_SECRET);
-        res.json(authToken);
+        success = true;
+        res.json({success,authToken});
     }
 
     // CATCHING ERROR
