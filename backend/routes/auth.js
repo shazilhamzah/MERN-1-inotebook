@@ -4,8 +4,10 @@ const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-const JWT_SECRET = "inotebook@secret86"
-var fetchuser = require('../middleware/fetchuser'); 
+var fetchuser = require('../middleware/fetchuser');
+require('dotenv').config();
+const JWT_SECRET = process.env.JWT_SECRET
+
 
 //? CREATE A USER USING: POST "/api/auth/createuser" WITH VALIDATIONS - NO LOGIN REQUIRED
 router.post('/createuser', [

@@ -1,8 +1,14 @@
   import React, { useState } from "react";
   import NoteContext from "./noteContext";
+  // require('dotenv').config()
 
   const NoteState = (props) => {
-    const host = "http://localhost:5000";
+
+    //! FOR LOCAL UNCOMMENT THIS
+    // const host = "http://localhost:5000";   
+    
+    //! FOR CLOUD UNCOMMENT THIS
+    const host = "https://inotebook-cloud.onrender.com"
    
 
     const [notes, setNotes] = useState([]);

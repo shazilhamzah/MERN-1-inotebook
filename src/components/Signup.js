@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const host = "http://localhost:5000";
+
+//! FOR LOCAL DEPLOYMENT
+// const host = "http://localhost:5000";
+
+//! FOR CLOUD DEPLOYMENT
+const host = "https://inotebook-cloud.onrender.com"
+
 
 const Signup = (props) => {
   const [creds, setCreds] = useState({
