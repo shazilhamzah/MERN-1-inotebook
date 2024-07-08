@@ -8,7 +8,7 @@
     // const host = "http://localhost:5000";   
     
     //! FOR CLOUD UNCOMMENT THIS
-    const host = "https://inotebook-cloud.onrender.com"
+    const host = "https://inotebook-cloud-backend.onrender.com"
    
 
     const [notes, setNotes] = useState([]);
