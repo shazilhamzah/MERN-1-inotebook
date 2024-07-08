@@ -13,9 +13,11 @@ router.post('/createuser', [
     body('name', "Enter a valid name").isLength({ min: 5 }),
     body('password', "Enter a valid password").isLength({ min: 8 }),
 ], async (req, res) => {
+    let success = false;
     const result = validationResult(req);
     if (!result.isEmpty()) {
-        return res.status(400).json({ errors: result.array() });
+        success = false;
+        return res.status(400).json({success, errors: result.array() });
     }
 
 
@@ -23,7 +25,8 @@ router.post('/createuser', [
     try {
         let user = await User.findOne({email:req.body.email});
         if(user){
-            return res.status(400).json({error:"Sorry a user with this email already exists!"})
+            success = false;
+            return res.status(400).json({success,error:"Sorry a user with this email already exists!"})
         }
 
         // BCRYPTING + SALT
@@ -44,14 +47,16 @@ router.post('/createuser', [
                 id:user.id
             }
         }
+        success = true;
         const authToken = jwt.sign(data,JWT_SECRET);
-        res.json(authToken);
+        res.json({success,authToken});
     } 
     
     // CATCHING ERROR
     catch (error) {
+        success = false;
         console.error(error.message);
-        res.status(500).send("Some error occured!");
+        res.status(500).send(success,"Some error occured!");
     }
     
 });

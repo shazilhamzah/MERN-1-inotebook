@@ -9,6 +9,10 @@ export const Navbar = () => {
     console.log(location.pathname);
   }, [location]);
 
+  const logout = () =>{
+    localStorage.setItem('token',"")
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -58,8 +62,10 @@ export const Navbar = () => {
                 placeholder="Search"
                 aria-label="Search"
               />
+              {localStorage.getItem("token")===""?<>
               <Link className="btn btn-outline-primary mx-1" to="/login" role="button">Login</Link>
-              <Link className="btn btn-outline-dark mx-1" to="/signup" role="button">Signup</Link>
+              <Link className="btn btn-outline-dark mx-1" to="/signup" role="button">Signup</Link></>
+              :<Link className="btn btn-outline-danger mx-1" to="/login" onClick={logout} role="button">Logout</Link>}
             </form>
           </div>
         </div>

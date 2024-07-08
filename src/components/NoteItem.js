@@ -5,6 +5,12 @@ export const NoteItem = (props) => {
   const { note,updateNote1 } = props;
   const context = useContext(NoteContext);
   const { deleteNote } = context;
+
+  const handleDeleteClick=()=>{
+    deleteNote(note._id);
+    props.showAlert(" Deleted successfully","success")
+  }
+
   return (
     <>
       
@@ -15,11 +21,13 @@ export const NoteItem = (props) => {
             <p className="card-text">{note.description}</p>
             <i
               className="fa-solid fa-trash"
-              onClick={() => deleteNote(note._id)}
+              onClick={() => handleDeleteClick()}
             ></i>
             <i
               className="fa-regular fa-pen-to-square mx-3"
-              onClick={() => updateNote1(note)}
+              onClick={()=>
+                {updateNote1(note)}
+              }
             ></i>
           </div>
         </div>

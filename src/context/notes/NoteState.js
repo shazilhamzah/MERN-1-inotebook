@@ -12,7 +12,7 @@
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+          "auth-token": localStorage.getItem("token"),
         },
       });
       const a = await response.json()
@@ -27,7 +27,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+          "auth-token":localStorage.getItem("token"),
         },
         body: JSON.stringify({title,description,tag}),
       });
@@ -48,7 +48,7 @@
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+          "auth-token": localStorage.getItem("token"),
         },
       });
       const newNotes = notes.filter((notes) => notes._id !== id);
@@ -61,7 +61,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4OTRmNDhhOWI0ZjM4ZDQ2NWM2MTk4In0sImlhdCI6MTcyMDI3NDg4OH0.xHIy_7zlSUSD2Nn1oGNl3_dYE2qqy_ORp1golL0qy0M",
+          "auth-token": localStorage.getItem("token"),
         },
         body: JSON.stringify({title,description,tag}),
       });
