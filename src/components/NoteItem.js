@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext} from "react";
 import NoteContext from "../context/notes/noteContext";
 
 export const NoteItem = (props) => {

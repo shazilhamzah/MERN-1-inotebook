@@ -16,7 +16,7 @@ export const Notes = (props) => {
     else{
       s("/login")
     }
-  }, []);
+  });
   const [note, setNote] = useState({id:"", etitle: "", edescription: "", etags: "" });
 
   const handleClick = (e) => {
@@ -40,7 +40,6 @@ export const Notes = (props) => {
       edescription: currentNote.description || "",
       etags: currentNote.tags || ""
     });
-    console.log(currentNote);
   };
 
   return (

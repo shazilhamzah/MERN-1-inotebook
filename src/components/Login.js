@@ -27,7 +27,6 @@ const Login = (props) => {
             body:JSON.stringify({email:creds.email,password:creds.password})
           });
           const json = await response.json();
-          console.log(json);
           if(json.success){
             localStorage.setItem('token',json.authToken);
             history("/");

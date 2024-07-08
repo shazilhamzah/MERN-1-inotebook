@@ -22,13 +22,11 @@
         },
       });
       const a = await response.json()
-      console.log(a);
       setNotes(a);
     };
 
     // ADD A NOTE
     const addNote = async (title, description, tag) => {
-      console.log("Adding a new Note");
       const response = await fetch(`${host}/api/notes/addnote`, {
         method: "POST",
         headers: {
@@ -49,7 +47,6 @@
 
     // DELETE A NOTE
     const deleteNote = async (id) => {
-      console.log("Deleting the note with id ", id);
       const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
         method: "DELETE",
         headers: {

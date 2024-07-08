@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // LOCATION FUNCTION - LINK: https://v5.reactrouter.com/web/api/Hooks/uselocation
@@ -6,7 +6,6 @@ import { Link, useLocation } from "react-router-dom";
 export const Navbar = () => {
   let location = useLocation();
   React.useEffect(() => {
-    console.log(location.pathname);
   }, [location]);
 
   const logout = () =>{
