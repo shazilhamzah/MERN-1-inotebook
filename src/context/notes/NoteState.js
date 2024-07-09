@@ -1,6 +1,5 @@
   import React, { useState } from "react";
   import NoteContext from "./noteContext";
-  // require('dotenv').config()
 
   const NoteState = (props) => {
 
@@ -37,17 +36,12 @@
       });
       const json = await response.json();
       const newNote = json;
-      // const newNote = {
-      //   title: title,
-      //   description: description,
-      //   tag: tag,
-      // };
       setNotes(notes.concat(newNote)); // Update context state with new note
     };
 
     // DELETE A NOTE
     const deleteNote = async (id) => {
-      const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+      await fetch(`${host}/api/notes/deletenote/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +54,7 @@
 
     // UPDATE A NOTE
     const updateNote = async (id, title, description, tag) => {
-      const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+     await fetch(`${host}/api/notes/updatenote/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
